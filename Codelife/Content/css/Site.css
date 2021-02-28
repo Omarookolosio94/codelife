@@ -1,0 +1,72 @@
+﻿
+:root {
+    --theme-color: #fb7a7d;
+    --theme-contrast: #da496f;
+    --white: white;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.bg-theme, .btn-theme {
+    background: var(--theme-color);
+    color: var(--white);
+}
+
+.btn-theme{
+    border: 1px solid var(--theme-color);
+}
+
+.btn-theme:hover {
+    border: 1px solid var(--theme-contrast);
+    color: var(--white);
+    background: var(--theme-contrast);
+}
+
+.text-theme {
+    color: var(--theme-color);
+}
+
+.text-theme-contrast{
+    color: var(--theme-contrast);
+}
+
+.text-capitalize {
+    text-transform: uppercase;
+}
+
+
+
+.btn-white {
+    background: white;
+    color: black;
+    border: 1px solid white;
+}
+
+    .btn-white:hover, .btn-white:active {
+        border: 1px solid white;
+    }
+
+header a.logo:hover {
+    text-decoration: none;
+}
+
+footer {
+    margin-top: auto;
+}
+
+
+.login,
+.image {
+    min-height: 80vh;
+}
+
+.bg-image {
+    background-image: url("../img/register.jpg");
+    background-size: cover;
+    background-position: center center;
+}

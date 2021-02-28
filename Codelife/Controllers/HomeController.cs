@@ -26,5 +26,10 @@ namespace Codelife.Controllers
 
             return View();
         }
+
+        public ActionResult NotFound()
+        {
+            return View();
+        }
     }
 }
