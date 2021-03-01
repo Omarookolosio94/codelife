@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Register - Codelife";
+    ViewBag.Title = "Login - Codelife";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-lg-10 col-xl-7 mx-auto">
 
-                            <p class="text-muted text-capitalize mb-4">Start your Journey with us For Free</p>
+                            <p class="text-muted text-capitalize mb-4">Welcome</p>
  
                             <form>
                                 <div class="form-group mb-3">
@@ -27,21 +27,10 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <input id="password" type="password" placeholder="Password"  name="password" class="form-control" onkeyup = "return ValidatePassword(event)" onblur= "return validateForm(event)" data-field="input">
-                                    <p id="errorPassword" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Password must be more than 6 digits</p>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <input id="confirmPassword" type="password" placeholder="Confirm Password" name="confirmPassword" class="form-control" onkeyup = "return ValidateConfirmPassword(event)" onblur= "return validateForm(event)" data-field="input">
-                                    <p id="errorConfirmPassword" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Password do not Match</p>
+                                    <p id="errorPassword" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Invalid Password</p>
                                 </div>
 
-                                <button type="button" id="registerBtn" class="btn btn-theme btn-lg btn-block mb-2 shadow-sm" onclick="Register()" disabled>Register</button>
-                                <div class="text-center d-flex justify-content-between mt-4">
-                                    <p class="text-muted">
-                                        Have an account already <a href="@Url.Action("Login" , "Account")" class="font-italic text-muted">
-                                            <u>Log in</u>
-                                        </a>
-                                    </p>
-                                </div>
+                                <button type="button" id="loginBtn" class="btn btn-theme btn-lg btn-block mb-2 shadow-sm" onclick="Login()" disabled>Login</button>
                             </form>
 
                         </div>
@@ -59,7 +48,6 @@
 
     var isEmailValid = false;
     var isPasswordValid = false;
-    var isConfirmPasswordValid = false;
     var isFormValid = false;
 
     function ValidateEmail(e) {
@@ -71,7 +59,6 @@
 
         } else {
             $('#errorEmail').addClass("d-none");
-            $('#email').addClass("border-success");
             isEmailValid = true;
         }
     }
@@ -84,22 +71,7 @@
             isPasswordValid = false;
         } else {
             $('#errorPassword').addClass("d-none");
-            $('#password').addClass("border-success");
             isPasswordValid = true;
-        }
-    }
-
-    function ValidateConfirmPassword(e) {
-        var confirmPassword = e.target.value;
-        var password = $('#password').val();
-
-        if (confirmPassword != password) {
-            $('#errorConfirmPassword').removeClass("d-none");
-            isConfirmPasswordValid = false;
-        } else {
-            $('#errorConfirmPassword').addClass("d-none");
-            $('#confirmPassword').addClass("border-success");
-            isConfirmPasswordValid = true;
         }
     }
 
@@ -137,42 +109,34 @@
         }
 
 
-        $("#registerBtn").attr("disabled", true);
+        $("#loginBtn").attr("disabled", true);
 
-        if (isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+        if (isEmailValid && isPasswordValid) {
             isFormValid = true;
         }
 
 
         if (isFormValid && !errors.includes(false)) {
-            $("#registerBtn").attr("disabled", false);
+            $("#loginBtn").attr("disabled", false);
         }
     }
 
 
-    function Register() {
-        debugger;
-
+    function Login() {
         //$('#spinner').show();
         var email = $('#email').val();
         var password = $('#password').val();
-        var username = emailUsername(email);
-        var dateRegistered = getTodayDate();
-
 
  
         var dataObject = JSON.stringify({
             "email": email,
             "password": password,
-            "username": username,
-            "profile": "I am " + username,
-            "dateRegistered": dateRegistered
         });
 
 
         $.ajax({
             type: "POST",
-            url: '../Account/Register',
+            url: '../Account/Login',
             data: dataObject,
             contentType: 'application/json',
             success: onSuccessCall
@@ -181,18 +145,9 @@
         function onSuccessCall(data) {
             debugger;
             if (data.success) {
-                //$('#spinner').attr("hidden", true)
-                window.location.href = '../Account/Login';
                 return;
             } else {
-
-                $('#modelMessage').text(data.message);
-
-                $('#notificationModal').modal({
-                    backdrop: 'static',
-                    keyboard: false,
-                    show: true
-                });
+ 
 
                 return;
             }

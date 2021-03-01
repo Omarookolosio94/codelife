@@ -60,6 +60,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -68,6 +71,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\LessJie.System.Web.Http.1.0.0\lib\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -198,10 +204,11 @@
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\i-con.css" />
     <Content Include="Content\img\register.jpg" />
+    <Content Include="Content\js\HelpersJs.js" />
     <Content Include="Data\CodelifeDbContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CodelifeDbContext.Context.cs</LastGenOutput>
       <DependentUpon>CodelifeDbContext.edmx</DependentUpon>
+      <LastGenOutput>CodelifeDbContext.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Data\CodelifeDbContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -248,6 +255,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Account\Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\NotFound.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <EntityDeploy Include="Data\CodelifeDbContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CodelifeDbContext.Designer.cs</LastGenOutput>
@@ -259,10 +272,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\Register.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\NotFound.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -25,10 +25,9 @@ namespace Codelife.Data
         public string content { get; set; }
         public Nullable<bool> publicationStatus { get; set; }
         public Nullable<System.DateTime> createDate { get; set; }
-        public Nullable<System.DateTime> updateDATE { get; set; }
+        public Nullable<System.DateTime> updateDate { get; set; }
         public string tag { get; set; }
         public Nullable<int> authorId { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
     
         public virtual Author Author { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

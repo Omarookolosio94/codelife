@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CodelifeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CodelifeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Authors">
           <Key>
             <PropertyRef Name="authorId" />
@@ -93,7 +93,8 @@
             <End Role="Posts" EntitySet="Posts" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CodelifeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -105,10 +106,10 @@
           <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="profile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__author__2C3393D0" FromRole="Authors" ToRole="Comments" />
-          <NavigationProperty Name="Posts" Relationship="Self.FK__Posts__authorId__286302EC" FromRole="Authors" ToRole="Posts" />
           <Property Name="dateRegistered" Type="DateTime" Precision="0" />
+          <Property Name="profile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__author__38996AB5" FromRole="Authors" ToRole="Comments" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK__Posts__authorId__34C8D9D1" FromRole="Authors" ToRole="Posts" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -120,8 +121,8 @@
           <Property Name="commentDate" Type="DateTime" Precision="0" />
           <Property Name="authorId" Type="Int32" />
           <Property Name="postId" Type="Int32" />
-          <NavigationProperty Name="Author" Relationship="Self.FK__Comments__author__2C3393D0" FromRole="Comments" ToRole="Authors" />
-          <NavigationProperty Name="Post" Relationship="Self.FK__Comments__postId__2D27B809" FromRole="Comments" ToRole="Posts" />
+          <NavigationProperty Name="Author" Relationship="Self.FK__Comments__author__38996AB5" FromRole="Comments" ToRole="Authors" />
+          <NavigationProperty Name="Post" Relationship="Self.FK__Comments__postId__398D8EEE" FromRole="Comments" ToRole="Posts" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -132,14 +133,13 @@
           <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="publicationStatus" Type="Boolean" />
           <Property Name="createDate" Type="DateTime" Precision="0" />
-          <Property Name="updateDATE" Type="DateTime" Precision="0" />
+          <Property Name="updateDate" Type="DateTime" Precision="0" />
           <Property Name="tag" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="authorId" Type="Int32" />
-          <NavigationProperty Name="Author" Relationship="Self.FK__Posts__authorId__286302EC" FromRole="Posts" ToRole="Authors" />
-          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__postId__2D27B809" FromRole="Posts" ToRole="Comments" />
-          <Property Name="updateDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Author" Relationship="Self.FK__Posts__authorId__34C8D9D1" FromRole="Posts" ToRole="Authors" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__postId__398D8EEE" FromRole="Posts" ToRole="Comments" />
         </EntityType>
-        <Association Name="FK__Comments__author__2C3393D0">
+        <Association Name="FK__Comments__author__38996AB5">
           <End Role="Authors" Type="Self.Author" Multiplicity="0..1" />
           <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -151,7 +151,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Posts__authorId__286302EC">
+        <Association Name="FK__Posts__authorId__34C8D9D1">
           <End Role="Authors" Type="Self.Author" Multiplicity="0..1" />
           <End Role="Posts" Type="Self.Post" Multiplicity="*" />
           <ReferentialConstraint>
@@ -163,7 +163,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comments__postId__2D27B809">
+        <Association Name="FK__Comments__postId__398D8EEE">
           <End Role="Posts" Type="Self.Post" Multiplicity="0..1" />
           <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -179,15 +179,15 @@
           <EntitySet Name="Authors" EntityType="Self.Author" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Posts" EntityType="Self.Post" />
-          <AssociationSet Name="FK__Comments__author__2C3393D0" Association="Self.FK__Comments__author__2C3393D0">
+          <AssociationSet Name="FK__Comments__author__38996AB5" Association="Self.FK__Comments__author__38996AB5">
             <End Role="Authors" EntitySet="Authors" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Posts__authorId__286302EC" Association="Self.FK__Posts__authorId__286302EC">
+          <AssociationSet Name="FK__Posts__authorId__34C8D9D1" Association="Self.FK__Posts__authorId__34C8D9D1">
             <End Role="Authors" EntitySet="Authors" />
             <End Role="Posts" EntitySet="Posts" />
           </AssociationSet>
-          <AssociationSet Name="FK__Comments__postId__2D27B809" Association="Self.FK__Comments__postId__2D27B809">
+          <AssociationSet Name="FK__Comments__postId__398D8EEE" Association="Self.FK__Comments__postId__398D8EEE">
             <End Role="Posts" EntitySet="Posts" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
@@ -201,11 +201,11 @@
           <EntitySetMapping Name="Authors">
             <EntityTypeMapping TypeName="CodelifeModel.Author">
               <MappingFragment StoreEntitySet="Authors">
-                <ScalarProperty Name="dateRegistered" ColumnName="dateRegistered" />
                 <ScalarProperty Name="authorId" ColumnName="authorId" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="dateRegistered" ColumnName="dateRegistered" />
                 <ScalarProperty Name="profile" ColumnName="profile" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -225,12 +225,12 @@
           <EntitySetMapping Name="Posts">
             <EntityTypeMapping TypeName="CodelifeModel.Post">
               <MappingFragment StoreEntitySet="Posts">
-                <ScalarProperty Name="updateDate" ColumnName="updateDate" />
                 <ScalarProperty Name="postId" ColumnName="postId" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="content" ColumnName="content" />
                 <ScalarProperty Name="publicationStatus" ColumnName="publicationStatus" />
                 <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="updateDate" ColumnName="updateDate" />
                 <ScalarProperty Name="tag" ColumnName="tag" />
                 <ScalarProperty Name="authorId" ColumnName="authorId" />
               </MappingFragment>

@@ -25,8 +25,8 @@ namespace Codelife.Data
         public string email { get; set; }
         public string password { get; set; }
         public string username { get; set; }
-        public string profile { get; set; }
         public Nullable<System.DateTime> dateRegistered { get; set; }
+        public string profile { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
