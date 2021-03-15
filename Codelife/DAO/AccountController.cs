@@ -10,6 +10,7 @@ using Codelife.Repositories.Concretes;
 using System.Web.Http;
 using System.Threading.Tasks;
 using System.Net;
+using Codelife.Models;
 
 namespace Codelife.DAO
 {
@@ -26,7 +27,7 @@ namespace Codelife.DAO
 
         public AccountController()
         {
-            _authorService = new AuthorService(new AuthorRepository(dbContext));
+            _authorService = new AuthorService(new AuthorRepository(dbContext) , new ArticleRepository(dbContext));
         }
 
         [HttpPost]
@@ -53,9 +54,52 @@ namespace Codelife.DAO
             catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to Create Author!");
-                // (500, new ExecptionResponse { Message = ex.Message });
             }
         }
+
+
+
+        [HttpPost]
+        [Route("IsEmailAvailable")]
+        public async Task<HttpResponseMessage> IsEmailAvailable(string email)
+        {
+            try
+            {
+                Request = new HttpRequestMessage();
+                configuration = new HttpConfiguration();
+                Request.Properties[System.Web.Http.Hosting.HttpPropertyKeys.HttpConfigurationKey] = configuration;
+
+                bool result = await _authorService.IsEmailAvailable(email);
+            
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to Get IsEmailAvailable!");
+            }
+        }
+
+        [HttpPost]
+        [Route("GetAuthorByEmail")]
+        public async Task<HttpResponseMessage> GetAuthorByEmail(string email)
+        {
+            try
+            {
+                Request = new HttpRequestMessage();
+                configuration = new HttpConfiguration();
+                Request.Properties[System.Web.Http.Hosting.HttpPropertyKeys.HttpConfigurationKey] = configuration;
+
+                var result = await _authorService.GetAuthorByEmail(email);
+                return Request.CreateResponse<Author>(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Unable to Get Author Details!");
+
+            }
+
+        }
+
     }
 
 }

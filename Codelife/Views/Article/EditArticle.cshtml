@@ -1,0 +1,213 @@
+﻿@using Codelife.Data;
+@model Post
+
+@{
+    ViewBag.Title = "Edit Article - Codelife";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var AuthorId = " ";
+
+    if (Session["AUTHORID"] != null)
+    {
+        AuthorId = Session["AUTHORID"].ToString();
+    }
+
+}
+
+@{
+    <style>
+        .form-box {
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+    </style>
+}
+<div class="container">
+
+    <div class="form-box border col-12 col-lg-8">
+        <a href="@Url.Action("AuthorProfile" , "Profile" , new {  authorId = Int32.Parse(AuthorId)})" class="btn btn-outline-primary mb-3 btn-link">
+            Back To Profile
+        </a>
+
+        <p class="text-muted text-capitalize mb-4">Edit " @Model.title "</p>
+
+        <form autocomplete="off">
+
+            <input type="hidden" value=@Model.authorId id="authorId" />
+            <input type="hidden" value=@Model.postId id="postId" />
+            <div class="form-group">
+                <label for="title" class="col-form-label text-sm">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" onkeyup="return TitleCount()" onmouseout="ValidateTitle(event); return ValidatePostArticleForm(event)" value="@Model.title">
+                <p id="titleCount" class="form-text text-success d-none my-0" style="font-size: smaller;"><span id="titleCountAmount"></span> characters remaining</p>
+                <p id="titleError" class="form-text text-danger d-none my-0" style="font-size: smaller;">Title is Required</p>
+            </div>
+            <div class="form-group">
+                <label for="tag" class="col-form-label text-sm">Tag:</label>
+                <input type="text" class="form-control" id="tag" name="tag" onkeyup="return TagCount()" onmouseout="ValidateTag(event); return ValidatePostArticleForm(event)" value="@Model.tag">
+                <p id="tagCount" class="form-text text-success d-none my-0" style="font-size: smaller;"><span id="tagCountAmount"></span> characters remaining</p>
+                <p id="tagError" class="form-text text-danger d-none my-0" style="font-size: smaller;">Tag is Required</p>
+                <p id="" class="form-text text-muted" style="font-size: smaller;">Use comma seperated Values, E.g Science , Sports , Entertainment</p>
+            </div>
+            <div class="form-group">
+                <label for="text" class="col-form-label text-sm">Body:</label>
+                <textarea class="form-control" id="text" name="text" onkeyup="" onmouseout="ValidateText(event); return ValidatePostArticleForm()">@Model.text</textarea>
+                <p id="textError" class="form-text text-danger d-none" style="font-size: smaller;">Text is Required</p>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="publicationStatus" checked="@Model.publicationStatus">
+                <label class="form-check-label" for="publicationStatus">
+                    Publish Article
+                </label>
+            </div>
+
+            <button type="button" class="btn btn-theme" disabled id="postArticleBtn" onclick="EditArticle()">Post</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function TitleCount() {
+        var name = $("#title");
+        var limit = 500;
+
+        var count = checkCount(name, limit);
+        $('#titleCountAmount').text(count);
+        $('#titleCount').removeClass("d-none");
+    }
+
+
+    function TagCount() {
+        var name = $("#tag");
+        var limit = 500;
+
+        var count = checkCount(name, limit);
+        $('#tagCountAmount').text(count);
+        $('#tagCount').removeClass("d-none");
+    }
+
+    function ValidateTitle(e) {
+        var title = e.target.value;
+
+        if (!title) {
+            $('#titleError').removeClass("d-none");
+            $('#title').removeClass("border-success");
+        } else {
+            $('#titleError').addClass("d-none");
+            $('#title').addClass("border-success");
+
+        }
+    }
+
+
+    function ValidateTag(e) {
+
+        var tag = e.target.value;
+        if (!tag) {
+            $('#tagError').removeClass("d-none");
+            $('#tag').removeClass("border-success");
+
+        } else {
+            $('#tagError').addClass("d-none");
+            $('#tag').addClass("border-success");
+
+        }
+    }
+
+    function ValidateText(e) {
+
+        var text = e.target.value;
+        if (!text) {
+            $('#textError').removeClass("d-none");
+            $('#text').removeClass("border-success");
+
+        } else {
+            $('#textError').addClass("d-none");
+            $('#text').addClass("border-success");
+
+        }
+    }
+
+
+    function ValidatePostArticleForm() {
+        var title = $("#title").val();
+        var tag = $("#tag").val();
+        var text = $("#text").val();
+
+
+        if (!title || !tag || !text) {
+            $("#postArticleBtn").attr("disabled", true);
+        } else {
+            $("#postArticleBtn").attr("disabled", false);
+        }
+        return;
+    }
+
+
+    function EditArticle() {
+        $('#loader').removeClass("d-none");
+        $("#postArticleBtn").attr("disabled", true);
+
+
+        var title = $('#title').val();
+        var text = $('#text').val();
+        var publicationStatus = $('#publicationStatus').is(":checked");
+        //var createDate = getTodayDate();
+        var updateDate = getTodayDate();
+        var tag = $('#tag').val();
+        var authorId = $('#authorId').val();
+        var postId = $('#postId').val();
+
+
+
+        var dataObject = JSON.stringify({
+            "postId": postId,
+            "title": title,
+            "text": text,
+            "publicationStatus": publicationStatus,
+            //"createDate": createDate,
+            "updateDate": updateDate,
+            "tag": tag,
+            "authorId": +authorId
+        });
+
+        $.ajax({
+            type: "POST",
+            url: '../Article/EditArticle',
+            data: dataObject,
+            contentType: 'application/json',
+            success: onSuccessCall
+        });
+
+        function onSuccessCall(data) {
+            if (data.success) {
+                $('#loader').addClass("d-none");
+                $('#successMessage').text(data.message);
+                $('#alertSuccess').removeClass("d-none");
+                $('#alertSuccess').addClass("show");
+
+                setTimeout(function () {
+                    location.reload();
+                }, 3000);
+                
+                return;
+            } else {
+                $('#loader').addClass("d-none");
+
+                $('#failMessage').text(data.message);
+                $('#alertFail').removeClass("d-none");
+                $('#alertFail').addClass("show");
+                $("#postArticleBtn").attr("disabled", false);
+
+                return;
+            }
+
+        }
+    }
+</script>

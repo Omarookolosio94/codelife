@@ -1,0 +1,204 @@
+﻿
+@using Codelife.Models;
+@using Codelife.Data;
+@model Profile
+
+@{
+    ViewBag.Title = "AuthorProfile - Codelife";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var loggedAuthorId = (Session["AUTHORID"] != null) ? (Session["AUTHORID"]) : null;
+    var showEdit = false;
+
+    if (loggedAuthorId != null)
+    {
+        if (loggedAuthorId.ToString() == Model.authorId.ToString())
+        {
+            showEdit = true;
+        }
+    }
+
+}
+
+@{
+    <style>
+        .post-item {
+            width: 452px;
+            height: 301px;
+        }
+
+        .post-content {
+            position: absolute;
+            bottom: 20%;
+            width: 90%;
+            left: 5%;
+            height: 40%;
+        }
+
+        .post-action {
+            position: absolute;
+            bottom: 0;
+            width: 90%;
+            padding: 0;
+            left: 5%;
+        }
+    </style>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="mx-auto">
+            <!-- Profile widget -->
+            <div class="bg-white shadow overflow-hidden">
+                <div class="px-4 pt-0 pb-4 bg-dark">
+                    <div class="media align-items-end profile-header">
+                        <div class="profile mr-3">
+                            <img src="~/Content/img/user.svg" alt="user" width="130" class="rounded mb-2 img-thumbnail">
+                            @if (showEdit)
+                            {
+                                <button class="btn btn-dark btn-sm btn-block" onclick=" return openEditProfileModal()">Edit profile</button>
+                                <button class="btn btn-danger btn-sm btn-block" onclick=" return DeleteProfile(@Int32.Parse( loggedAuthorId.ToString()))" id="deleteProfileBtn">Delete profile</button>
+
+                            }
+                        </div>
+                        <div class="media-body mb-5 text-white">
+                            <h4 class="mt-0 mb-0">@Model.username</h4>
+                            <p class="small mb-2">@Model.profile</p>
+                            <p class="small mb-4">@Model.dateRegistered</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-light p-4 d-flex justify-content-end text-center">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <h5 class="font-weight-bold mb-0 d-block">@Model.Posts.Count()</h5><small class="text-muted"> <i class="fa fa-picture-o mr-1"></i>Posts</small>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="py-4 px-4">
+                    @if (Model.Posts.Count() > 0)
+                    {
+
+                        <div class="row">
+                            @foreach (Post article in Model.Posts)
+                            {
+                                <div class="col-lg-5 mb-2 mr-2 post-box">
+                                    <div class="post-item rounded">
+                                        <div class="post-content text-white">
+                                            <p class="text-bold">@article.title</p>
+                                            <span class="text-sm">@article.tag</span>
+                                            <span class="text-sm float-right">@article.createDate</span> <br />
+                                            <span class="text-sm">Written By: @Model.username</span> <br />
+                                        </div>
+                                        <div class="post-action">
+                                            <a href="@Url.Action("ArticleById" , "Article" , new { articleId = article.postId})" class="btn btn-primary mb-3 btn-link">
+                                                Read
+                                            </a>
+
+                                            @if (showEdit)
+                                            {
+
+                                                <a href="@Url.Action("EditArticle" , "Article" , new { articleId = article.postId, authorId = Int32.Parse(loggedAuthorId.ToString())})" class="btn btn-success mb-3 mr-2 btn-link float-right">
+                                                    Edit
+                                                </a>
+                                                <button class="btn btn-theme mb-3 mr-2 btn-link float-right" id="deleteArticleBtn" onclick="DeleteArticle(@article.postId , @Int32.Parse(loggedAuthorId.ToString()))">
+                                                    Delete
+                                                </button>
+                                            }
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            }
+                            <div class="col-lg-5 mb-2 mr-2 post-box">
+                                <div class="post-item rounded">
+                                    <div class="post-content">
+
+                                    </div>
+                                    <div class="post-action">
+                                        @if (showEdit)
+                                        {
+                                            <a href="@Url.Action("PostArticle" , "Article")" class="btn btn-theme mb-3 mr-2 btn-link float-right">
+                                                Post An Article
+                                            </a>
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-lg-5 mb-2 mr-2 post-box">
+                                <div class="post-item rounded">
+                                    <div class="post-content">
+                                        <p class="text-bold">No Post Yet For User</p>
+
+                                    </div>
+                                    <div class="post-action">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-5 mb-2 mr-2 post-box">
+                                <div class="post-item rounded">
+                                    <div class="post-content">
+
+                                    </div>
+                                    <div class="post-action">
+                                        @if (showEdit)
+                                        {
+                                            <a href="@Url.Action("PostArticle" , "Article")" class="btn btn-theme mb-3 mr-2 btn-link float-right">
+                                                Post An Article
+                                            </a>
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+
+                    @*
+                        <div class="py-4">
+                            <h5 class="mb-3">Recent posts</h5>
+                            <div class="p-4 bg-light rounded shadow-sm">
+                                <p class="font-italic mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                                <ul class="list-inline small text-muted mt-3 mb-0">
+                                    <li class="list-inline-item"><i class="fa fa-comment-o mr-2"></i>12 Comments</li>
+                                    <li class="list-inline-item"><i class="fa fa-heart-o mr-2"></i>200 Likes</li>
+                                </ul>
+                            </div>
+                        </div>
+                        **@
+                </div>
+            </div><!-- End profile widget -->
+
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_EditProfilePartial", @Model)
+
+
+
+<script type="text/javascript">
+    function openEditProfileModal() {
+        $('#editProfileModal').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+        return;
+    }
+</script>

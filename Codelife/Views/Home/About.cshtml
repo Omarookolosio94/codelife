@@ -1,7 +1,114 @@
-﻿@{
-    ViewBag.Title = "About";
+﻿
+@{
+    ViewBag.Title = "Codelife - About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+@{
+    <style>
+     
+
+        .aboutus-section {
+            padding: 90px 0;
+        }
+
+        .aboutus-title {
+            letter-spacing: 0;
+            line-height: 32px;
+            margin: 0 0 39px;
+            padding: 0 0 11px;
+            position: relative;
+            text-transform: uppercase;
+        }
+
+        .aboutus-text {
+            line-height: 22px;
+            margin: 0 0 35px;
+        }
+
+        a:hover, a:active {
+            color: #ffb901;
+            text-decoration: none;
+            outline: 0;
+        }
+
+
+        .feature .feature-box .feature-content h4 {
+            letter-spacing: 0;
+            line-height: 22px;
+            margin: 0 0 5px;
+        }
+
+
+        .feature .feature-box .feature-content {
+            float: left;
+            padding-left: 28px;
+            width: 78%;
+        }
+
+            .feature .feature-box .feature-content h4 {
+                letter-spacing: 0;
+                line-height: 22px;
+                margin: 0 0 5px;
+            }
+
+            .feature .feature-box .feature-content p {
+                line-height: 22px;
+            }
+        }
+    </style>
+}
+
+<div class="aboutus-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="aboutus">
+                    <h2 class="aboutus-title text-theme">About Us</h2>
+                    <p class="aboutus-text">Codelife is dedicated to bringing the best out of you</p>
+                    <p class="aboutus-text">We provide a 100% free platform where you can publish your day to day writing goals and receive constructive reviews from others. We encourage and promote the publication of original content.</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="aboutus-banner">
+                    <img src="~/Content/img/6.svg" alt="">
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-6 col-xs-12">
+                <div class="feature">
+                    <div class="feature-box mb-3">
+                        <div class="clearfix">
+                            <div class="feature-content">
+                                <h4 class="text-theme">Features</h4>
+                                <p class="my-0">User Registration and Authentication</p>
+                                <p class="my-0">Perform CRUD functionality on Authors and Post</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-box mb-3">
+                        <div class="clearfix">
+                            <div class="feature-content">
+                                <h4 class="text-theme">Bugs & Fixes</h4>
+                                <p class="my-0">Display dates without time</p>
+                                <p class="my-0">Fix error message displayed when server connection fails on email validation</p>
+                                <p class="my-0">Display of unpublished article on users profile</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-box mb-3">
+                        <div class="clearfix">
+                            <div class="feature-content">
+                                <h4 class="text-theme">Upcoming Features</h4>
+                                <p class="my-0">CRUD Functionality for comments</p>
+                                <p class="my-0">Displaying Random articles</p>
+                                <p class="my-0">Displaying article of the day</p>
+                                <p class="my-0">Search Article by Tags and Title</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

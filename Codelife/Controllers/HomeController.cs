@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Codelife.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,19 +12,38 @@ namespace Codelife.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var response = new DAO.ArticleController().GetAllArticle().Result;
+            List<Post> articles = new List<Post>();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var articleDetails = response.Content.ReadAsAsync<List<Post>>().Result;
+
+                if (articleDetails != null)
+                {
+                    articles = articleDetails;
+                }
+                else
+                {
+                    articles = null;
+                }
+            }
+            else
+            {
+                articles = null;
+            }
+
+            return View(articles);
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
 
             return View();
         }

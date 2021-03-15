@@ -19,18 +19,20 @@
                         <div class="col-lg-10 col-xl-7 mx-auto">
 
                             <p class="text-muted text-capitalize mb-4">Start your Journey with us For Free</p>
- 
+
                             <form>
                                 <div class="form-group mb-3">
-                                    <input id="email" type="email" placeholder="Email address" autofocus="" name="email" class="form-control" onkeyup = "return ValidateEmail(event)" onblur= "return validateForm(event)" data-field="input">
+                                    <input id="email" type="email" placeholder="Email address" autofocus="" name="email" class="form-control" onkeyup="ValidateEmail(event); return isEmailAvailable(event);" onmouseout="return validateForm(event)" data-field="input">
                                     <p id="errorEmail" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Email Not Valid</p>
+                                    <p id="errorIsEmailAvailable" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Email already registered</p>
+
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input id="password" type="password" placeholder="Password"  name="password" class="form-control" onkeyup = "return ValidatePassword(event)" onblur= "return validateForm(event)" data-field="input">
+                                    <input id="password" type="password" placeholder="Password" name="password" class="form-control" onkeyup="return ValidatePassword(event)" onmouseout="return validateForm(event)" data-field="input">
                                     <p id="errorPassword" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Password must be more than 6 digits</p>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input id="confirmPassword" type="password" placeholder="Confirm Password" name="confirmPassword" class="form-control" onkeyup = "return ValidateConfirmPassword(event)" onblur= "return validateForm(event)" data-field="input">
+                                    <input id="confirmPassword" type="password" placeholder="Confirm Password" name="confirmPassword" class="form-control" onkeyup="return ValidateConfirmPassword(event)" onmouseout="return validateForm(event)" data-field="input">
                                     <p id="errorConfirmPassword" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Password do not Match</p>
                                 </div>
 
@@ -61,12 +63,14 @@
     var isPasswordValid = false;
     var isConfirmPasswordValid = false;
     var isFormValid = false;
+    var emailNotRegistered = false;
 
     function ValidateEmail(e) {
         var email = e.target.value;
 
         if (!isEmail(email)) {
             $('#errorEmail').removeClass("d-none");
+            $('#email').removeClass("border-success");
             isEmailValid = false;
 
         } else {
@@ -81,6 +85,7 @@
 
         if (password.length < 6) {
             $('#errorPassword').removeClass("d-none");
+            $('#password').removeClass("border-success");
             isPasswordValid = false;
         } else {
             $('#errorPassword').addClass("d-none");
@@ -95,6 +100,7 @@
 
         if (confirmPassword != password) {
             $('#errorConfirmPassword').removeClass("d-none");
+            $('#confirmPassword').removeClass("border-success");
             isConfirmPasswordValid = false;
         } else {
             $('#errorConfirmPassword').addClass("d-none");
@@ -102,6 +108,36 @@
             isConfirmPasswordValid = true;
         }
     }
+
+
+    function isEmailAvailable() {
+        var email = $('#email').val();
+
+        $.ajax({
+            type: "POST",
+            url: '../Account/IsEmailAvailable?email=' + email,
+            contentType: 'application/json',
+            success: onSuccessCall
+        });
+
+        function onSuccessCall(data) {
+            if (data.success) {
+                if (data.data) {
+                    $('#errorIsEmailAvailable').addClass("d-none");
+                    emailNotRegistered = true;
+                } else {
+                    $('#errorIsEmailAvailable').removeClass("d-none");
+                    $('#email').removeClass("border-success");
+                    emailNotRegistered = false;
+                }
+                return;
+
+            } else {
+                return;
+            }
+
+        }
+    };
 
 
     function validateForm(e) {
@@ -139,7 +175,7 @@
 
         $("#registerBtn").attr("disabled", true);
 
-        if (isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+        if (isEmailValid && isPasswordValid && isConfirmPasswordValid && emailNotRegistered) {
             isFormValid = true;
         }
 
@@ -151,23 +187,24 @@
 
 
     function Register() {
-        debugger;
+        $('#loader').removeClass("d-none");
+        $("#registerBtn").attr("disabled", true);
 
-        //$('#spinner').show();
         var email = $('#email').val();
         var password = $('#password').val();
         var username = emailUsername(email);
-        var dateRegistered = getTodayDate();
+        //var dateRegistered = getTodayDate();
 
 
- 
+
         var dataObject = JSON.stringify({
             "email": email,
             "password": password,
             "username": username,
             "profile": "I am " + username,
-            "dateRegistered": dateRegistered
+            //"dateRegistered": dateRegistered
         });
+
 
 
         $.ajax({
@@ -179,20 +216,22 @@
         });
 
         function onSuccessCall(data) {
-            debugger;
             if (data.success) {
-                //$('#spinner').attr("hidden", true)
-                window.location.href = '../Account/Login';
+                $('#loader').addClass("d-none");
+                $('#redirectSuccessMessage').text(data.message);
+                $('#alertRedirect').removeClass("d-none");
+                $('#alertRedirect').addClass("show");
+
+
+                countDown(5, "../Account/LoginUser?email=" + email + "&password=" + password, "#redirectMessage", "Home");
                 return;
             } else {
+                $('#loader').addClass("d-none");
 
-                $('#modelMessage').text(data.message);
-
-                $('#notificationModal').modal({
-                    backdrop: 'static',
-                    keyboard: false,
-                    show: true
-                });
+                $('#failMessage').text(data.message);
+                $('#alertFail').removeClass("d-none");
+                $('#alertFail').addClass("show");
+                $("#registerBtn").attr("disabled", false);
 
                 return;
             }
@@ -202,3 +241,5 @@
 
 
 </script>
+
+ 

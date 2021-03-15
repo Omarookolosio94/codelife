@@ -1,0 +1,119 @@
+﻿@model Codelife.Models.Profile
+
+<!-- Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"><label id="Modaltitle">Edit Profile</label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="username" class="col-form-label text-sm">Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" value="@Model.username" onkeyup="return NameCount()" onmouseout="return ValidateEditForm(event)">
+                        <p id="nameCount" class="form-text text-success d-none" style="font-size: smaller;"><span id="nameCountAmount"></span> characters remaining</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile" class="col-form-label text-sm">Profile:</label>
+                        <textarea class="form-control" id="profile" name="profile" onkeyup="return ProfileCount()" onmouseout="return ValidateEditForm(event)">@Model.profile</textarea>
+                        <p id="profileCount" class="form-text text-success d-none" style="font-size: smaller;"><span id="profileCountAmount"></span> characters remaining</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-theme" disabled id="updateProfileBtn" onclick="UpdateProfile()">Update Profile</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function ProfileCount() {
+        var profile = $("#profile");
+        var limit = 500;
+
+        var count = checkCount(profile, limit);
+        $('#profileCountAmount').text(count);
+        $('#profileCount').removeClass("d-none");
+
+    }
+
+    function NameCount() {
+        var name = $("#username");
+        var limit = 50;
+
+        var count = checkCount(name, limit);
+        $('#nameCountAmount').text(count);
+        $('#nameCount').removeClass("d-none");
+
+    }
+
+
+    function ValidateEditForm(e) {
+        var username = $("#username").val();
+        var profile = $("#username").val();
+
+        if (!username || !profile) {
+            $("#updateProfileBtn").attr("disabled", true);
+        } else {
+            $("#updateProfileBtn").attr("disabled", false);
+        }
+    }
+
+
+    function UpdateProfile() {
+        //$('#loader').removeClass("d-none");
+        //$("#updateProfileBtn").attr("disabled", true);
+
+        var username = $("#username").val();
+        var profile = $("#profile").val();
+
+        var dataObject = JSON.stringify({
+            "username": username,
+            "profile": profile,
+        });
+
+
+        $.ajax({
+            type: "POST",
+            url: "../Profile/UpdateAuthor",
+            data: dataObject,
+            contentType: 'application/json',
+            success: onSuccessCall
+        });
+
+
+        function onSuccessCall(data) {
+            if (data.success) {
+                $('#loader').addClass("d-none");
+
+                
+                $('#successMessage').text(data.message);
+                $('#alertSuccess').removeClass("d-none");
+                $('#alertSuccess').addClass("show");
+                $("#updateProfileBtn").attr("disabled", false);
+
+                location.reload(true);
+                return;
+            } else {
+
+                $('#loader').addClass("d-none");
+
+                $('#failMessage').text(data.message);
+                $('#alertFail').removeClass("d-none");
+                $('#alertFail').addClass("show");
+                $("#updateProfileBtn").attr("disabled", false);
+
+                return;
+            }
+
+        }
+    }
+
+</script>

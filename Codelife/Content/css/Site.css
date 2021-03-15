@@ -1,8 +1,13 @@
 ﻿
 :root {
-    --theme-color: #fb7a7d;
-    --theme-contrast: #da496f;
+    --theme-color3: #ff4c60;
+    --theme-color: #6c6ce5;
+    --theme-color2: #f9f9ff;
+    --theme-contrast: #5353c0;
     --white: white;
+    --dark-blue: #6c6ce5;
+    --yellow: #f9d74c;
+    --green: #0fa958;
 }
 
 
@@ -10,6 +15,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background: var(--theme-color2);
 }
 
 .bg-theme, .btn-theme {
@@ -17,21 +23,34 @@ body {
     color: var(--white);
 }
 
-.btn-theme{
+.btn-theme {
     border: 1px solid var(--theme-color);
 }
+
+.btn-outline-theme {
+    border: 1px solid var(--theme-color);
+}
+
+    .btn-outline-theme:hover {
+        border-color: var(--theme-contrast);
+    }
 
 .btn-theme:hover {
     border: 1px solid var(--theme-contrast);
     color: var(--white);
     background: var(--theme-contrast);
+    text-decoration: none;
 }
 
-.text-theme {
+a.btn-success:hover, a.btn-primary:hover, a.btn-danger:hover {
+    color: var(--white);
+}
+
+a.text-theme, .text-theme {
     color: var(--theme-color);
 }
 
-.text-theme-contrast{
+.text-theme-contrast {
     color: var(--theme-contrast);
 }
 
@@ -39,6 +58,18 @@ body {
     text-transform: uppercase;
 }
 
+.text-sm {
+    font-size: 14px;
+}
+
+header .btn {
+    min-width: 100px;
+}
+
+.bg-blue{
+    background: var(--dark-blue);
+    color: var(--white);
+}
 
 
 .btn-white {
@@ -66,7 +97,449 @@ footer {
 }
 
 .bg-image {
-    background-image: url("../img/register.jpg");
+    background-image: url("../img/6.svg");
     background-size: cover;
     background-position: center center;
+}
+
+.bg-image-login {
+    background-image: url("../img/1.svg");
+    background-size: cover;
+    background-position: center center;
+}
+
+a.btn-link:hover {
+    text-decoration: none
+}
+
+
+.alert {
+    position: fixed;
+    width: 50%;
+    top: 5px;
+    right: 5%;
+    text-align: center;
+    z-index: 6000;
+}
+
+
+.post-box:nth-child(odd) {
+    background: var(--dark-blue);
+}
+
+.post-box:nth-child(even) {
+    background: var(--yellow);
+}
+
+.loader {
+    background-color: #f4f7f6;
+    width: 100%;
+    height: 4px;
+    position: fixed;
+    opacity: 1;
+    pointer-events: none;
+    -webkit-transition: opacity cubic-bezier(0.4, 0, 0.2, 1) 436ms;
+    -moz-transition: opacity cubic-bezier(0.4, 0, 0.2, 1) 436ms;
+    transition: opacity cubic-bezier(0.4, 0, 0.2, 1) 436ms;
+    z-index: 1500;
+}
+
+.loader-head {
+    background-color: #bdc1c0;
+    height: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loader .first-indicator,
+.loader .second-indicator {
+    background-color: var(--theme-contrast);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: absolute;
+    -webkit-transform-origin: left center;
+    -moz-transform-origin: left center;
+    transform-origin: left center;
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    transform: scaleX(0);
+}
+
+.loader .first-indicator {
+    -webkit-animation: first-indicator 2s linear infinite;
+    -moz-animation: first-indicator 2s linear infinite;
+    animation: first-indicator 2s linear infinite;
+}
+
+.loader .second-indicator {
+    -webkit-animation: second-indicator 2s linear infinite;
+    -moz-animation: second-indicator 2s linear infinite;
+    animation: second-indicator 2s linear infinite;
+}
+
+.profile-header {
+    transform: translateY(5rem);
+}
+
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes first-indicator {
+    0% {
+        transform: translate(0) scaleX(0);
+    }
+
+    25% {
+        transform: translate(0) scaleX(0.5);
+    }
+
+    50% {
+        transform: translate(25%) scaleX(0.75);
+    }
+
+    75% {
+        transform: translate(100%) scaleX(0);
+    }
+
+    100% {
+        transform: translate(100%) scaleX(0);
+    }
+}
+
+@keyframes second-indicator {
+    0% {
+        transform: translate(0) scaleX(0);
+    }
+
+    60% {
+        transform: translate(0) scaleX(0);
+    }
+
+    80% {
+        transform: translate(0) scaleX(0.6);
+    }
+
+    100% {
+        transform: translate(100%) scaleX(0.1);
+    }
+}
+
+
+section {
+    padding: 60px 0;
+}
+
+    section .section-title {
+        text-align: center;
+        color: var(--theme-color);
+        margin-bottom: 50px;
+        text-transform: uppercase;
+    }
+
+#team .card {
+    background: #ffffff;
+}
+
+
+.frontside {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 30px;
+}
+
+    .frontside .card {
+        min-height: 312px;
+    }
+
+    .frontside a {
+        text-decoration: none;
+    }
+
+    .frontside .card .card-title {
+        color: var(--theme-color) !important;
+    }
+
+    .profile-img, .frontside .card .card-body img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+    }
+
+
+
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+.navbar-icon-top .navbar-nav .nav-link > .fa {
+    position: relative;
+    width: 36px;
+    font-size: 24px;
+}
+
+    .navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
+        font-size: 0.75rem;
+        position: absolute;
+        right: 0;
+        font-family: sans-serif;
+    }
+
+.navbar-icon-top .navbar-nav .nav-link > .fa {
+    top: 3px;
+    line-height: 12px;
+}
+
+    .navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
+        top: -10px;
+    }
+
+@media (min-width: 576px) {
+    .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link {
+        text-align: center;
+        display: table-cell;
+        height: 70px;
+        vertical-align: middle;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+        .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa {
+            display: block;
+            width: 48px;
+            margin: 2px auto 4px auto;
+            top: 0;
+            line-height: 24px;
+        }
+
+            .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa > .badge {
+                top: -7px;
+            }
+}
+
+@media (min-width: 768px) {
+    .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link {
+        text-align: center;
+        display: table-cell;
+        height: 70px;
+        vertical-align: middle;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+        .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa {
+            display: block;
+            width: 48px;
+            margin: 2px auto 4px auto;
+            top: 0;
+            line-height: 24px;
+        }
+
+            .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa > .badge {
+                top: -7px;
+            }
+}
+
+@media (min-width: 992px) {
+    .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link {
+        text-align: center;
+        display: table-cell;
+        height: 70px;
+        vertical-align: middle;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+        .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa {
+            display: block;
+            width: 48px;
+            margin: 2px auto 4px auto;
+            top: 0;
+            line-height: 24px;
+        }
+
+            .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa > .badge {
+                top: -7px;
+            }
+}
+
+@media (min-width: 1200px) {
+    .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link {
+        text-align: center;
+        display: table-cell;
+        height: 70px;
+        vertical-align: middle;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+        .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa {
+            display: block;
+            width: 48px;
+            margin: 2px auto 4px auto;
+            top: 0;
+            line-height: 24px;
+        }
+
+            .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa > .badge {
+                top: -7px;
+            }
+}
+
+
+/*=================================================================*/
+/*                      PARALLAX SHAPES                              
+/*=================================================================*/
+.parallax {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+
+    .parallax .layer {
+        position: absolute;
+    }
+
+    .parallax .p1 {
+        left: 10%;
+        top: 10%;
+    }
+
+    .parallax .p2 {
+        left: 25%;
+        top: 30%;
+    }
+
+    .parallax .p3 {
+        left: 15%;
+        bottom: 30%;
+    }
+
+    .parallax .p4 {
+        left: 10%;
+        bottom: 10%;
+    }
+
+    .parallax .p5 {
+        left: 45%;
+        top: 10%;
+    }
+
+    .parallax .p6 {
+        left: 40%;
+        bottom: 10%;
+    }
+
+    .parallax .p7 {
+        top: 20%;
+        right: 30%;
+    }
+
+    .parallax .p8 {
+        right: 30%;
+        bottom: 20%;
+    }
+
+    .parallax .p9 {
+        right: 10%;
+        top: 10%;
+    }
+
+    .parallax .p10 {
+        top: 45%;
+        right: 20%;
+    }
+
+    .parallax .p11 {
+        bottom: 10%;
+        right: 10%;
+    }
+
+
+
+
+@media only screen and (max-width: 576px) {
+ 
+    .parallax .p1 {
+        left: 10%;
+        top: 10%;
+    }
+
+    .parallax .p2 {
+        left: 15%;
+        top: 30%;
+    }
+
+    .parallax .p3 {
+        left: 10%;
+        bottom: 30%;
+    }
+
+    .parallax .p4 {
+        left: 10%;
+        bottom: 10%;
+    }
+
+    .parallax .p5 {
+        left: 45%;
+        top: 3%;
+    }
+
+    .parallax .p6 {
+        left: 40%;
+        bottom: 10%;
+    }
+
+    .parallax .p7 {
+        top: 20%;
+        right: 30%;
+    }
+
+    .parallax .p8 {
+        right: 30%;
+        bottom: 20%;
+    }
+
+    .parallax .p9 {
+        right: 10%;
+        top: 5%;
+    }
+
+    .parallax .p10 {
+        top: 45%;
+        right: 10%;
+    }
+
+    .parallax .p11 {
+        bottom: 10%;
+        right: 10%;
+    }
 }

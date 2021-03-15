@@ -15,11 +15,11 @@ namespace Codelife.Data
     public partial class Comment
     {
         public int commentId { get; set; }
-        public string comment1 { get; set; }
         public string commentator { get; set; }
         public Nullable<System.DateTime> commentDate { get; set; }
         public Nullable<int> authorId { get; set; }
         public Nullable<int> postId { get; set; }
+        public string commentText { get; set; }
     
         public virtual Author Author { get; set; }
         public virtual Post Post { get; set; }

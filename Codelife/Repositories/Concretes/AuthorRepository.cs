@@ -46,6 +46,19 @@ namespace Codelife.Repositories.Concretes
         }
 
 
+        public async Task<Author> GetAuthorByEmail(string email)
+        {
+            try
+            {
+                return Query().Where(o => o.email == email).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                new Logger().LogError(ModuleName, "AuthorRepository", "Error Getting author" + email + " " + ex + "/n");
+                throw;
+            }
+        }
+
         public async Task<bool> AddAuthor(Author author)
         {
             try
@@ -61,21 +74,6 @@ namespace Codelife.Repositories.Concretes
             }
         }
 
-        public async Task<bool> UpdateAuthor(Author author)
-        {
-            try
-            {
-                Update(author);
-                await Commit();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                new Logger().LogError(ModuleName, "AuthorRepository", "Error Updating Author" + ex + "/n");
-                throw;
-            }
-        }
-
         public async Task<bool> DeleteAuthor(int authorId){
             try
             {
@@ -87,6 +85,43 @@ namespace Codelife.Repositories.Concretes
             } catch(Exception ex)
             {
                 new Logger().LogError(ModuleName, "AuthorRepository", "Error Deleting Author" + authorId + " " + ex + "/n");
+                throw;
+            }
+        }
+
+
+        public async Task<bool> IsEmailAvailable(string email)
+        {
+            try
+            {
+                var mailList = Query().Where(o => o.email.ToString() == email.ToString()).FirstOrDefault();
+
+                if(mailList != null)
+                {
+                    return false;
+                } else
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                new Logger().LogError(ModuleName, "AuthorRepository", "Error Getting Is Email Available"  + ex + "/n");
+                throw;
+            }
+        }
+
+        public async Task<bool> UpdateAuthor(Author author)
+        {
+            try
+            {
+                Update(author);
+                await Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                new Logger().LogError(ModuleName, "AuthorRepository", "Error Updating Author" + ex + "/n");
                 throw;
             }
         }

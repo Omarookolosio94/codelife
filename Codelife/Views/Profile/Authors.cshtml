@@ -1,0 +1,70 @@
+﻿
+@using Codelife.Data;
+
+@model List<Author>
+
+@{
+    ViewBag.Title = "Authors - Codelife";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row my-4">
+        <!-- Team member -->
+        @if (Model.Count() > 0)
+        {
+            foreach (Author author in Model)
+            {
+
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="image-flip">
+                        <div class="mainflip flip-0">
+                            <div class="frontside">
+                                <div class="card">
+                                    <a class="card-body text-center" href="@Url.Action("AuthorProfile", "Profile", new { authorId = author.authorId })">
+                                        <div class="profile-img mx-auto">
+                                            <img class="img-fluid" src="~/Content/img/user.svg" alt="card image">
+                                        </div>
+                                        <h4 class="card-title">@author.username</h4>
+                                        <p class="text-dark">@author.profile</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="image-flip">
+                    <div class="mainflip flip-0">
+                        <div class="frontside">
+                            <div class="card">
+                                <a class="card-body text-center" href="@Url.Action("Register", "Account")">
+                                    <div class="profile-img mx-auto">
+                                        <!--
+
+                                        <img class="img-fluid" src="" alt="card image">
+
+                                            -->
+                                    </div>
+                                    <h4 class="card-title">Register for Free</h4>
+                                    <p class="text-dark">Obtain the honour of being the very first registered user</p>
+
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+
+    </div>
+</div>
+
+

@@ -18,4 +18,10 @@ namespace Codelife.Models
         public string password { get; set; }
     }
 
+    public class EditAuthor
+    {
+        public string username { get; set; }
+        public string profile { get; set; }
+    }
+
 }
