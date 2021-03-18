@@ -159,8 +159,8 @@
         var title = $('#title').val();
         var text = $('#text').val();
         var publicationStatus = $('#publicationStatus').is(":checked");
-        var createDate = getTodayDate();
-        var updateDate = getTodayDate();
+        //var createDate = getTodayDate();
+        //var updateDate = getTodayDate();
         var tag = $('#tag').val();
         var authorId = $('#authorId').val();
 
@@ -169,12 +169,12 @@
             "title": title,
             "text": text,
             "publicationStatus": publicationStatus,
-            "createDate": createDate,
-            "updateDate": updateDate,
+            //"createDate": createDate,
+            //"updateDate": updateDate,
             "tag": tag,
             "authorId": +authorId
         });
-
+        
         $.ajax({
             type: "POST",
             url: '../Article/PostArticle',

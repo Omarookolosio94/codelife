@@ -128,6 +128,7 @@ namespace Codelife.Controllers
                     {
                         if (authorId.ToString() == article.authorId.ToString())
                         {
+                            article.updateDate = DateTime.Today;
                             var response = new DAO.ArticleController().UpdateArticle(article, Int32.Parse(authorId.ToString())).Result;
 
                             if (response.IsSuccessStatusCode)
@@ -180,6 +181,8 @@ namespace Codelife.Controllers
         {
             try
             {
+                article.createDate = DateTime.Today;
+                article.updateDate = DateTime.Today;
 
                 var postArticleResult = new DAO.ArticleController().AddArticle(article).Result;
 
