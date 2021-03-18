@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -72,36 +73,45 @@ namespace Codelife.Controllers
         {
             try
             {
-                var response = new DAO.ArticleController().GetArticleById(articleId).Result;
                 Post article = new Post();
 
-                if (response.IsSuccessStatusCode)
+                var author = Session["AUTHORID"] != null ? (Session["AUTHORID"]) : null;
+                if (author != null)
                 {
-                    article = response.Content.ReadAsAsync<Post>().Result;
+                    var response = new DAO.ArticleController().GetArticleById(articleId).Result;
 
-                    if (article != null)
+                    if (response.IsSuccessStatusCode)
                     {
+                        article = response.Content.ReadAsAsync<Post>().Result;
 
-                        if (article.authorId == authorId)
+                        if (article != null)
                         {
-                            return View(article);
+
+                            if (article.authorId == authorId)
+                            {
+                                return View(article);
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Home");
+
+                            }
                         }
                         else
                         {
                             return RedirectToAction("Index", "Home");
-
                         }
                     }
                     else
                     {
                         return RedirectToAction("Index", "Home");
                     }
+
                 }
                 else
                 {
                     return RedirectToAction("Index", "Home");
                 }
-
 
             }
             catch (Exception ex)
@@ -123,6 +133,24 @@ namespace Codelife.Controllers
                 {
                     var authorId = Session["AUTHORID"] != null ? (Session["AUTHORID"]) : null;
 
+                    StringBuilder text = new StringBuilder();
+
+                    // Encode text
+                    text.Append(HttpUtility.HtmlEncode(article.text));
+                    text.Replace("&lt;b&gt;", "<b>");
+                    text.Replace("&lt;/b&gt;", "</b>");
+                    text.Replace("&lt;br/&gt;", "<br/>");
+                    text.Replace("&lt;em&gt;", "<em>");
+                    text.Replace("&lt;/em&gt;", "</em>");
+                    text.Replace("&lt;u&gt;", "<u>");
+                    text.Replace("&lt;/u&gt;", "</u>");
+                    text.Replace("&lt;h4&gt;", "<h4>");
+                    text.Replace("&lt;/h4&gt;", "</h4>");
+                    text.Replace("&lt;p&gt;", "<p>");
+                    text.Replace("&lt;/p&gt;", "</p>");
+
+
+                    article.text = text.ToString();
 
                     if (authorId != null)
                     {
@@ -184,6 +212,25 @@ namespace Codelife.Controllers
                 article.createDate = DateTime.Today;
                 article.updateDate = DateTime.Today;
 
+                StringBuilder text = new StringBuilder();
+
+                // Encode text
+                text.Append(HttpUtility.HtmlEncode(article.text));
+                text.Replace("&lt;b&gt;", "<b>");
+                text.Replace("&lt;/b&gt;", "</b>");
+                text.Replace("&lt;br/&gt;", "<br/>");
+                text.Replace("&lt;em&gt;", "<em>");
+                text.Replace("&lt;/em&gt;", "</em>");
+                text.Replace("&lt;u&gt;", "<u>");
+                text.Replace("&lt;/u&gt;", "</u>");
+                text.Replace("&lt;h4&gt;", "<h4>");
+                text.Replace("&lt;/h4&gt;", "</h4>");
+                text.Replace("&lt;p&gt;", "<p>");
+                text.Replace("&lt;/p&gt;", "</p>");
+
+
+                article.text = text.ToString();
+
                 var postArticleResult = new DAO.ArticleController().AddArticle(article).Result;
 
                 if (postArticleResult.IsSuccessStatusCode)
@@ -215,7 +262,7 @@ namespace Codelife.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult DeleteArticle(int articleId , int authorId)
+        public ActionResult DeleteArticle(int articleId, int authorId)
         {
             try
             {

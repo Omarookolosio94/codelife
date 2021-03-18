@@ -22,15 +22,15 @@
  
                             <form>
                                 <div class="form-group mb-3">
-                                    <input id="email" type="email" placeholder="Email address" autofocus="" name="email" class="form-control" onkeyup = "return ValidateEmail(event)" onmouseout= "return validateForm(event)" data-field="input">
+                                    <input id="email" type="email" placeholder="Email address" autofocus="" name="email" class="form-control py-4" onkeyup = "return ValidateEmail(event)" onmouseout= "return validateForm(event)" data-field="input">
                                     <p id="errorEmail" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Email Not Valid</p>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input id="password" type="password" placeholder="Password"  name="password" class="form-control" onkeyup = "return ValidatePassword(event)" onmouseout= "return validateForm(event)" data-field="input">
+                                    <input id="password" type="password" placeholder="Password"  name="password" class="form-control py-4" onkeyup = "return ValidatePassword(event)" onmouseout= "return validateForm(event)" data-field="input">
                                     <p id="errorPassword" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Password must be more than 6 digits</p>
                                 </div>
 
-                                <button type="button" id="loginBtn" class="btn btn-theme btn-lg btn-block mb-2 shadow-sm" onclick="Login()" disabled>Login</button>
+                                <button type="button" id="loginBtn" class="btn btn-theme btn-lg btn-block mb-2 shadow-sm py-2" onclick="Login()" disabled>Login</button>
                             </form>
 
                         </div>

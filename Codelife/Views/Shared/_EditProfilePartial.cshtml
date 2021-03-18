@@ -14,19 +14,19 @@
                 <form>
                     <div class="form-group">
                         <label for="username" class="col-form-label text-sm">Username:</label>
-                        <input type="text" class="form-control" id="username" name="username" value="@Model.username" onkeyup="return NameCount()" onmouseout="return ValidateEditForm(event)">
+                        <input type="text" class="form-control py-4" id="username" name="username" value="@Model.username" onkeyup="return NameCount()" onmouseout="return ValidateEditForm(event)">
                         <p id="nameCount" class="form-text text-success d-none" style="font-size: smaller;"><span id="nameCountAmount"></span> characters remaining</p>
                     </div>
                     <div class="form-group">
-                        <label for="profile" class="col-form-label text-sm">Profile:</label>
+                        <label for="profile" class="col-form-label text-sm py-4">Profile:</label>
                         <textarea class="form-control" id="profile" name="profile" onkeyup="return ProfileCount()" onmouseout="return ValidateEditForm(event)">@Model.profile</textarea>
                         <p id="profileCount" class="form-text text-success d-none" style="font-size: smaller;"><span id="profileCountAmount"></span> characters remaining</p>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-theme" disabled id="updateProfileBtn" onclick="UpdateProfile()">Update Profile</button>
+                <button type="button" class="btn btn-outline-danger py-2" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-theme py-2" disabled id="updateProfileBtn" onclick="UpdateProfile()">Update Profile</button>
             </div>
         </div>
     </div>
@@ -116,4 +116,11 @@
         }
     }
 
+    $('#profile').bind('input propertychange paste', function () {
+        var oldHeight = parseInt($(this).height());
+
+        if (this.scrollHeight < 450) {
+            $(this).height(0).height(this.scrollHeight);
+        }
+    }).change
 </script>

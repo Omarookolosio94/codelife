@@ -22,21 +22,21 @@
 
                             <form>
                                 <div class="form-group mb-3">
-                                    <input id="email" type="email" placeholder="Email address" autofocus="" name="email" class="form-control" onkeyup="ValidateEmail(event); return isEmailAvailable(event);" onmouseout="return validateForm(event)" data-field="input">
+                                    <input id="email" type="email" placeholder="Email address" autofocus="" name="email" class="form-control py-4" onkeyup="ValidateEmail(event); return isEmailAvailable(event);" onmouseout="return validateForm(event)" data-field="input">
                                     <p id="errorEmail" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Email Not Valid</p>
                                     <p id="errorIsEmailAvailable" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Email already registered</p>
 
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input id="password" type="password" placeholder="Password" name="password" class="form-control" onkeyup="return ValidatePassword(event)" onmouseout="return validateForm(event)" data-field="input">
+                                    <input id="password" type="password" placeholder="Password" name="password" class="form-control py-4" onkeyup="return ValidatePassword(event)" onmouseout="return validateForm(event)" data-field="input">
                                     <p id="errorPassword" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Password must be more than 6 digits</p>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input id="confirmPassword" type="password" placeholder="Confirm Password" name="confirmPassword" class="form-control" onkeyup="return ValidateConfirmPassword(event)" onmouseout="return validateForm(event)" data-field="input">
+                                    <input id="confirmPassword" type="password" placeholder="Confirm Password" name="confirmPassword" class="form-control py-4" onkeyup="return ValidateConfirmPassword(event)" onmouseout="return validateForm(event)" data-field="input">
                                     <p id="errorConfirmPassword" class="form-text text-danger d-none" style="font-size: smaller;" data-error="error">Password do not Match</p>
                                 </div>
 
-                                <button type="button" id="registerBtn" class="btn btn-theme btn-lg btn-block mb-2 shadow-sm" onclick="Register()" disabled>Register</button>
+                                <button type="button" id="registerBtn" class="btn btn-theme btn-lg btn-block mb-2 shadow-sm py-2" onclick="Register()" disabled>Register</button>
                                 <div class="text-center d-flex justify-content-between mt-4">
                                     <p class="text-muted">
                                         Have an account already <a href="@Url.Action("Login" , "Account")" class="font-italic text-muted">

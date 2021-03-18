@@ -12,6 +12,14 @@
         .back-btn{
             margin-top: 4rem;
         }
+
+        .article-text p {
+            margin-bottom: 2rem;
+        }
+
+        .article-text h4 {
+            color: #6c6ce5;
+        }
     </style>
 }
 <main role="main" class="container">
@@ -22,7 +30,7 @@
             </h3>
 
             <div class="article-text">
-                @Model.text
+                @Html.Raw(Model.text)
             </div>
 
             <div class="back-btn">

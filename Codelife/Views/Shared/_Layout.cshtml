@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link href="~/Content/css/Site.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <script src="~/Content/js/jquery-3.0.0.min.js"></script>
 
     @{
         var AuthorId = " ";
@@ -65,24 +66,24 @@
 
                     <li>
                         <a class="mr-3" href="@Url.Action("About" , "Home")">
-                            <span class="btn btn-white">About</span>
+                            <span class="btn btn-white py-2 mb-sm-2">About</span>
                         </a>
                     </li>
                     @if (isUser)
                     {
                         <li class="nav-item">
                             <a class="mr-3" href="@Url.Action("Authors" , "Profile")">
-                                <span class="btn btn-white">Authors</span>
+                                <span class="btn btn-white py-2 mb-sm-2">Authors</span>
                             </a>
                         </li>
                         <li>
                             <a href="@Url.Action("AuthorProfile" , "Profile" , new {  authorId = Int32.Parse(AuthorId)})" class="mr-3">
-                                <span class="btn btn-white">Profile</span>
+                                <span class="btn btn-white py-2 mb-sm-2">Profile</span>
                             </a>
                         </li>
                         <li>
                             <a href="@Url.Action("Logout" , "Account")" class="mr-3">
-                                <span class="btn btn-white">Log Out</span>
+                                <span class="btn btn-white py-2 mb-sm-2">Log Out</span>
                             </a>
 
                         </li>
@@ -96,16 +97,16 @@
                     {
                         <li>
                             <a class="mr-3" href="@Url.Action("Authors" , "Profile")">
-                                <span class="btn btn-white">Authors</span>
+                                <span class="btn btn-white py-2 mb-sm-2">Authors</span>
                             </a>
                         </li>
                         <li>
                             <a class="mr-3" href="@Url.Action("Login" , "Account")">
-                                <span class="btn btn-white">Login</span>
+                                <span class="btn btn-white py-2 mb-sm-2">Login</span>
                             </a>
                         </li>
                         <li>
-                            <a class="btn btn-theme" href="@Url.Action("Register" , "Account")">Register</a>
+                            <a class="btn btn-theme py-2" href="@Url.Action("Register" , "Account")">Register</a>
                         </li>
                     }
                 </ul>
@@ -182,7 +183,6 @@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     ================================================== -->
 
-    <script src="~/Content/js/jquery-3.0.0.min.js"></script>
     <script src="~/Content/js/popper.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
     <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- stats.js lib -->
@@ -197,5 +197,6 @@
             });
         }
     </script>
+
 </body>
 </html>

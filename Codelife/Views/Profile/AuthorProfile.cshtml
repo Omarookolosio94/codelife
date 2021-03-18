@@ -21,32 +21,7 @@
     }
 
 }
-
-@{
-    <style>
-        .post-item {
-            width: 452px;
-            height: 301px;
-        }
-
-        .post-content {
-            position: absolute;
-            bottom: 20%;
-            width: 90%;
-            left: 5%;
-            height: 40%;
-        }
-
-        .post-action {
-            position: absolute;
-            bottom: 0;
-            width: 90%;
-            padding: 0;
-            left: 5%;
-        }
-    </style>
-}
-
+ 
 <div class="container">
     <div class="row">
         <div class="mx-auto">
@@ -58,8 +33,8 @@
                             <img src="~/Content/img/user.svg" alt="user" width="130" class="rounded mb-2 img-thumbnail">
                             @if (showEdit)
                             {
-                                <button class="btn btn-dark btn-sm btn-block" onclick=" return openEditProfileModal()">Edit profile</button>
-                                <button class="btn btn-danger btn-sm btn-block" onclick=" return DeleteProfile(@Int32.Parse( loggedAuthorId.ToString()))" id="deleteProfileBtn">Delete profile</button>
+                                <button class="btn btn-dark btn-sm btn-block py-2" onclick=" return openEditProfileModal()">Edit profile</button>
+                                <button class="btn btn-danger btn-sm btn-block py-2" onclick=" return DeleteProfile(@Int32.Parse( loggedAuthorId.ToString()))" id="deleteProfileBtn">Delete profile</button>
 
                             }
                         </div>
@@ -127,7 +102,8 @@
                                             <a href="@Url.Action("PostArticle" , "Article")" class="btn btn-theme mb-3 mr-2 btn-link float-right">
                                                 Post An Article
                                             </a>
-                                        } else
+                                        }
+                                        else
                                         {
                                             <a href="@Url.Action("Register" , "Account")" class="btn btn-theme mb-3 mr-2 btn-link float-right">
                                                 Register and Start Writing Today
